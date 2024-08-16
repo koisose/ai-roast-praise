@@ -6,6 +6,7 @@ import { devtools } from 'frog/dev'
 import { handle } from 'frog/next'
 import { serveStatic } from 'frog/serve-static'
 import { Box, Heading, Text, VStack, vars } from '@/frog-ui/ui'
+import {whatQueue} from '../what/route'
 const app = new Frog({
   ui: { vars },
   assetsPath: '/',
@@ -19,8 +20,7 @@ const app = new Frog({
 // export const runtime = 'edge'
 
 app.frame('/', (c) => {
-  const { buttonValue, inputText, status } = c
-  const fruit = inputText || buttonValue
+  
   return c.res({
     image: (
       <Box
@@ -39,26 +39,26 @@ app.frame('/', (c) => {
     ),
     intents: [
       <TextInput placeholder="Enter farcaster username" />,
-      <Button value="roast">Roast</Button>,
-      <Button value="praise">Praise</Button>,
+      <Button action='/whats' value="roast">Roast</Button>,
+      <Button action='/whats' value="praise">Praise</Button>,
       
       
     ],
   })
 })
-app.frame('/roast', (c) => {
-  const { buttonValue, inputText, status } = c
-  const fruit = inputText || buttonValue
+app.frame('/whats', async(c) => {
+  const { buttonValue, inputText,frameData } = c
+  await whatQueue.enqueue({username:inputText,type:buttonValue,frameData})
   return c.res({
     image: (
       <Box
       grow
       alignVertical="center"
-      backgroundColor="blue"
+      alignHorizontal='center'
       padding="32"
     >
       <VStack gap="4">
-        <Heading>Roast or Praise Farcaster User</Heading>
+        <Heading>Your {buttonValue} of {inputText} still being processed, we will mention you in a cast when its done</Heading>
         <Text color="text200" size="20">
           powered by gaianet
         </Text>
@@ -66,9 +66,8 @@ app.frame('/roast', (c) => {
     </Box>
     ),
     intents: [
-      <TextInput placeholder="Enter farcaster username" />,
-      <Button value="roast">Roast</Button>,
-      <Button value="oranges">Praise</Button>,
+    
+      <Button.Reset >Back</Button.Reset>
       
       
     ],
