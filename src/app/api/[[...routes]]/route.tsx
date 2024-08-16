@@ -7,7 +7,9 @@ import { handle } from 'frog/next'
 import { serveStatic } from 'frog/serve-static'
 import { Box, Heading, Text, VStack, vars } from '@/frog-ui/ui'
 import {whatQueue} from '../what/route'
+import {getUserByUserName} from '@/lib/gaianet'
 const app = new Frog({
+  // imageAspectRatio: '1:1',
   ui: { vars },
   assetsPath: '/',
   basePath: '/api',
@@ -27,7 +29,7 @@ app.frame('/', (c) => {
       grow
       alignVertical="center"
       backgroundColor="blue"
-      padding="32"
+      padding="3"
     >
       <VStack gap="4">
         <Heading>Roast or Praise Farcaster User</Heading>
@@ -50,6 +52,7 @@ app.frame('/whats', async(c) => {
   const { buttonValue, inputText,frameData } = c
   await whatQueue.enqueue({username:inputText,type:buttonValue,frameData})
   return c.res({
+    
     image: (
       <Box
       grow

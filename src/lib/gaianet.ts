@@ -13,7 +13,7 @@ async function getPopularFeed(fid:number): Promise<CastsResponse> {
   return response.json<CastsResponse>();
 }
 
-async function getUserByUserName(username: string): Promise<Result> {
+export async function getUserByUserName(username: string): Promise<Result> {
   const response = await ky.get(`https://api.neynar.com/v1/farcaster/user-by-username?username=${username}`, {
     headers: {
       'accept': 'application/json',
