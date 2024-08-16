@@ -1,38 +1,36 @@
-# Start of Selection
-# Use the official Node.js image as the base image
-FROM node:18.17.0
+# docker/dev.Dockerfile
+FROM node:22-alpine
 
-# Set the working directory
-WORKDIR /app
-ENV NEYNAR ""
-ENV QUIRREL_TOKEN ""
-ENV QUIRREL_BASE_URL ""
-ENV QUIRREL_ENCRYPTION_SECRET ""
-ENV QUIRREL_API_URL ""
-ENV MONGO ""
-ENV BROWSERLESS ""
-ENV MINIO_ENDPOINT ""
-ENV MINIO_ACCESS_KEY ""
-ENV MINIO_SECRET_KEY ""
-ENV MINIO_URL ""
-ENV SIGNER ""
-ENV FID ""
-ENV NEXT_PUBLIC_IGNORE_BUILD_ERROR "true"
-# Copy package.json and package-lock.json
-COPY package*.json ./
+WORKDIR /app/next-app
 
-# Install dependencies
-RUN npm install --legacy-peer-deps
+COPY package.json ./
 
-# Copy the rest of the application code
+RUN npm install --force
+
 COPY . .
+ENV NEYNAR=
+ENV QUIRREL_TOKEN=
+ENV QUIRREL_BASE_URL=
+ENV QUIRREL_ENCRYPTION_SECRET=
+ENV QUIRREL_API_URL=
+ENV MONGO=
+ENV BROWSERLESS=
+ENV MINIO_ENDPOINT=
+ENV MINIO_ACCESS_KEY=
+ENV MINIO_SECRET_KEY=
+ENV MINIO_URL=
+ENV SIGNER=
+ENV FID=
+# Next.js collects completely anonymous telemetry data about general usage. Learn more here: https://nextjs.org/telemetry
+# Uncomment the following line to disable telemetry at run time
+ENV NEXT_TELEMETRY_DISABLED 1
 
-# Build the Next.js application
-RUN npm run build
-
-# Expose the port the app runs on
+# for deploting the build version
 EXPOSE 3000
+RUN npm run build
+# and
+CMD npm run start
 
-# Start the Next.js application
-CMD ["npm", "start"]
-# End of Selection
+# OR for sart Next.js in development, comment above two lines and uncomment below line
+
+# CMD bun run dev

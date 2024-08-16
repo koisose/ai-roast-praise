@@ -37,6 +37,8 @@
     "thirdweb": "^5.44.0"
   },
   "devDependencies": {
+    "@cloudflare/next-on-pages": "^1.13.2",
+    "@flydotio/dockerfile": "latest",
     "@types/node": "^20",
     "@types/react": "^18",
     "@types/react-dom": "^18",

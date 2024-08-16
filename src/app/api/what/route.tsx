@@ -10,6 +10,7 @@ export const whatQueue = Queue(
         let id = ""
         //@ts-ignore
         const getUsername = await getUserBulk(job.frameData.fid)
+        
         try {
 
             //@ts-ignore
@@ -23,7 +24,7 @@ export const whatQueue = Queue(
             //@ts-ignore
             console.log(e.message)
             //@ts-ignore
-            await sendMessage(`@${job.username} sorry there is an error on our end please try to ${job.type} again`, process.env.FID, process.env.SIGNER, `${process.env.QUIRREL_BASE_URL}/api`)
+            await sendMessage(`@${getUsername.users[0].username} sorry there is an error on our end please try to ${job.type} again`, process.env.FID, process.env.SIGNER, `${process.env.QUIRREL_BASE_URL}/api`)
         }
 
         try {
