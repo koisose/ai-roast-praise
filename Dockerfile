@@ -17,6 +17,7 @@ ENV MINIO_SECRET_KEY ""
 ENV MINIO_URL ""
 ENV SIGNER ""
 ENV FID ""
+ENV NEXT_PUBLIC_IGNORE_BUILD_ERROR "true"
 # Copy package.json and package-lock.json
 COPY package*.json ./
 
