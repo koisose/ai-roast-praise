@@ -9,7 +9,12 @@
     "lint": "next lint"
   },
   "dependencies": {
+    "@farcaster/core": "^0.14.20",
+    "@farcaster/hub-nodejs": "^0.11.24",
+    "@noble/hashes": "^1.4.0",
     "@radix-ui/react-slot": "^1.1.0",
+    "@standard-crypto/farcaster-js": "^7.4.0",
+    "@standard-crypto/farcaster-js-hub-rest": "^1.5.0",
     "axios": "^1.7.4",
     "class-variance-authority": "^0.7.0",
     "clsx": "^2.1.1",
@@ -18,10 +23,15 @@
     "hono": "^4.5.3",
     "ky": "^1.6.0",
     "lucide-react": "^0.424.0",
+    "minio": "^8.0.1",
+    "mongoose": "^8.5.3",
     "next": "14.2.5",
+    "playwright": "^1.46.0",
     "quirrel": "^1.14.1",
     "react": "^18",
     "react-dom": "^18",
+    "react-tweet": "^3.2.1",
+    "swr": "^2.2.5",
     "tailwind-merge": "^2.4.0",
     "tailwindcss-animate": "^1.0.7",
     "thirdweb": "^5.44.0"

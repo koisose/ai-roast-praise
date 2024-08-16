@@ -120,9 +120,7 @@ type UserProfile = {
     };
   }
   
-  interface Choice {
-    choices: LogEntry[];
-  }
+  
   
   
   
@@ -136,6 +134,6 @@ type UserProfile = {
       prompt_tokens: number;
       total_tokens: number;
     };
-    choices: Choice[];
+    choices: LogEntry[];
  
   }

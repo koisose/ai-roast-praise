@@ -34,6 +34,16 @@ export async function getCastByHash(hash: string): Promise<any> {
 
   return response.json();
 }
+export async function getUserBulk(fids: string): Promise<any> {
+  const response = await ky.get(`https://api.neynar.com/v2/farcaster/user/bulk?fids=${fids}`, {
+    headers: {
+      'accept': 'application/json',
+      'api_key': process.env.NEYNAR
+    }
+  });
+
+  return response.json();
+}
 export async function generateRoastOrPraise(username:string,roastOrPraise:"roast"|"praise"): Promise<ChatCompletion>{
     
     const user=await getUserByUserName(username);
