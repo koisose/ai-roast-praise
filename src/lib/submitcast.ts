@@ -1,9 +1,30 @@
 
 // @ts-ignore
 import {  Message,makeCastAdd } from "@farcaster/core";
+import {parseString} from './parseString'
 import axios from "axios";
+function hexToUint8Array(hex:string) {
+  // Remove the '0x' prefix if present
+  if (hex.startsWith('0x')) {
+      hex = hex.slice(2);
+  }
 
-export async function submitCast(message:any,fid:number,signer:any) {
+  // Ensure the hex string length is even
+  if (hex.length % 2 !== 0) {
+      throw new Error('Hex string must have an even length');
+  }
+
+  // Create a Uint8Array with length half of the hex string length
+  const byteArray = new Uint8Array(hex.length / 2);
+
+  for (let i = 0; i < hex.length; i += 2) {
+      // Convert each pair of hex characters to a byte
+      byteArray[i / 2] = parseInt(hex.substr(i, 2), 16);
+  }
+
+  return byteArray;
+}
+async function submitCast(message:any,fid:number,signer:any) {
  
     
   const server = "https://hub.pinata.cloud";
@@ -24,7 +45,7 @@ export async function submitCast(message:any,fid:number,signer:any) {
   const msg = await makeCastAdd(
     message,
     dataOptions,
-    process.env.SIGNER,
+    signer,
   );
   
   // // Encode the message into a Buffer (of bytes)
@@ -38,12 +59,13 @@ export async function submitCast(message:any,fid:number,signer:any) {
     
  
 }
-export async function sendMessage(){
-  const submitThis = await parseString(castInput.substring(0, 1024));
+export async function sendMessage(message:string,fid:any,signer:any,embeds?:any){
+  const submitThis = await parseString(message.substring(0, 1024));
+  // parentCastId: { fid: hashList[i].fid, hash: hexToUint8Array(hashList[i].hash) },
   const { hash } = await submitCast(
     {
         text: submitThis.text,
-        embeds: embedList,
+        embeds: embeds ?? [],
         embedsDeprecated: [],
         mentions: submitThis.mentions,
         mentionsPositions: submitThis.mentionsPositions,
@@ -52,6 +74,7 @@ export async function sendMessage(){
     fid,
     signer
 )
+return hash
 }
 
 

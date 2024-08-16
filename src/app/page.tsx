@@ -104,17 +104,17 @@ export default function Home() {
       </div>
 
 
-      <div className="flex w-full items-center justify-center space-x-2 pt-10 px-5">
+      {/* <div className="flex w-full items-center justify-center space-x-2 pt-10 px-5">
         <Input type="text" placeholder="Input Farcaster Username" value={username} onChange={(e)=>setUsername(e.target.value)} />
-      </div>
-      <div className="flex w-full items-center justify-center space-x-2 pt-3 px-5">
+      </div> */}
+      {/* <div className="flex w-full items-center justify-center space-x-2 pt-3 px-5">
         <Button onClick={async()=>{
           
 const a=await generateRoastOrPraise("dwr.eth","roast")
 console.log(a)
         }} >Roast</Button>
         <Button >Praise</Button>
-      </div>
+      </div> */}
       <Marquee pauseOnHover className="[--duration:20s]">
         {firstRow.map((review) => (
           <ReviewCard key={review.username} {...review} />
