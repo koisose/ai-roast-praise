@@ -48,8 +48,15 @@ export async function generateRoastOrPraise(username:string,roastOrPraise:"roast
     
     const user=await getUserByUserName(username);
     const {fid,activeStatus,displayName,followerCount,followingCount,powerBadge,profile}=user.result.user
-    const popularFeed=await getPopularFeed(fid)
-    const populars=popularFeed.casts.map(a=>({text:a.text}))
+    let populars=[] as any
+    try{
+      const popularFeed=await getPopularFeed(fid)
+      //@ts-ignore
+      populars=popularFeed.casts.map(a=>({text:a.text}))
+    }catch{
+console.log("no populars")
+    }
+    
     
     const detail=JSON.stringify({activeStatus,displayName,followerCount,followingCount,powerBadge,profile,popularPost:populars});
     const response = await ky.post(`https://0x768da699e7b40d6fa4660afefa33ef6ccc45749a.us.gaianet.network/v1/chat/completions`, {

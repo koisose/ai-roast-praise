@@ -7,10 +7,15 @@ export const whatQueue = Queue(
     "api/what", // 👈 the route it's reachable on
     async job => {
         console.log("roast or praise")
+        //@ts-ignore
+        if (job.frameData.fid === 568857 || job.username === undefined || job.type === undefined) {
+            console.log("TESTBOT")
+            return
+        }
         let id = ""
         //@ts-ignore
         const getUsername = await getUserBulk(job.frameData.fid)
-        
+
         try {
 
             //@ts-ignore
