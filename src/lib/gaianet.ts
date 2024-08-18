@@ -74,7 +74,7 @@ console.log("no populars")
     
     
     const detail=JSON.stringify({activeStatus,displayName,followerCount,followingCount,powerBadge,profile,popularPost:populars});
-    const response = await ky.post(`https://${getRandomModel.subdomain}/v1/chat/completions`, {
+    const response = await ky.post(`https://0x768da699e7b40d6fa4660afefa33ef6ccc45749a.us.gaianet.network/v1/chat/completions`, {
       json: {
         "messages": [
           {
@@ -87,7 +87,14 @@ console.log("no populars")
         }
         ],
         "model": "Meta-Llama-3-8B-Instruct-Q5_K_M"
-      }
+      },
+      retry: {
+        limit: 3,
+        methods: ['post'],
+        statusCodes: [408,504],
+        backoffLimit: 3000
+      },
+      timeout: 50000
     });
     return response.json<ChatCompletion>()
     
