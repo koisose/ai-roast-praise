@@ -7,6 +7,7 @@ export const whatQueue = Queue(
     "api/what", // 👈 the route it's reachable on
     async job => {
         console.log("roast or praise")
+       
         //@ts-ignore
         if (job.frameData.fid === 568857 || job.username === undefined || job.type === undefined) {
             console.log("TESTBOT")
@@ -20,6 +21,7 @@ export const whatQueue = Queue(
 
             //@ts-ignore
             const roastOrPraise = await generateRoastOrPraise(job.username, job.type);
+        
             //@ts-ignore
             id = await saveData({ username: job.username, creator: getUsername.users[0].username, type: job.type, message: roastOrPraise.choices[0].message.content }, "roastorpraise")
             //@ts-ignore
